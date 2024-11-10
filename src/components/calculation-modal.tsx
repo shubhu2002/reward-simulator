@@ -37,30 +37,31 @@ const CalculationModal: NextComponentType = () => {
 
   // final calculation
   const finalCalcualtion = () => {
-    const finakMaskPoints = masksCalculation(
+    const finalMaskPoints = masksCalculation(
       tierMasks,
       specialMasks,
       specialMasksBasePoints,
     );
-
-    const finalgoldenTicketPoints = goldenTicketCalculation(goldenTickets);
 
     const finalPleiadesPoints = pleiadesCalculation(
       tierPleiades,
       specialPleiades,
     );
 
-    if (finalPleiadesPoints === 412) {
+    if (finalMaskPoints === 412 || finalPleiadesPoints === 412) {
       return;
     }
+    const finalgoldenTicketPoints = goldenTicketCalculation(goldenTickets);
+
     const totalRewardPoints =
-      finakMaskPoints + finalPleiadesPoints + finalgoldenTicketPoints;
+      finalMaskPoints + finalPleiadesPoints + finalgoldenTicketPoints;
 
     const finalRewardPoints =
       totalRewardPoints +
       extraBoostGoldenTickets(totalRewardPoints, goldenTickets);
 
     setTotalRewardPoints(finalRewardPoints);
+
     setModal("RESULT");
   };
 

@@ -50,16 +50,35 @@ export const pleiadesCalculation = (
     }
   });
 
-  let specialPleiadesPoints = 0;
+  const totalPleiadesBoostPoints = (baseTotal * totalPleiadesBoostPer) / 100;
 
+  const specialPleiadesPoints = specialPleiadesCalculation(
+    totalPleiadesCounts,
+    specialPleiades,
+  );
+  console.log(baseTotal,tierBoostPoints);
+  const pleiadesTotal: number =
+    baseTotal +
+    tierBoostPoints +
+    totalPleiadesBoostPoints +
+    specialPleiadesPoints;
+
+  return pleiadesTotal;
+};
+
+const specialPleiadesCalculation = (
+  totalPleiadesCounts: number,
+  specialPleiades: number,
+): number => {
   if (totalPleiadesCounts < specialPleiades) {
     toast.error(
-      "Total Pleiades must be greater than or equal to Unique Ones Pleiades ",
+      "Total Pleiades must be greater than or equal to Unique Ones Pleiades.",
     );
     return 412;
   }
 
   const baseSpecialPleiadesPoints = specialPleiades * 20;
+
   const boostPer =
     specialPleiades >= 5
       ? 50
@@ -70,16 +89,10 @@ export const pleiadesCalculation = (
           : 0;
 
   if (boostPer > 0) {
-    specialPleiadesPoints =
-      baseSpecialPleiadesPoints + (baseSpecialPleiadesPoints * boostPer) / 100;
+    return (
+      baseSpecialPleiadesPoints + (baseSpecialPleiadesPoints * boostPer) / 100
+    );
   } else {
-    specialPleiadesPoints = baseSpecialPleiadesPoints;
+    return baseSpecialPleiadesPoints;
   }
-
-  const pleiadesTotal: number =
-    baseTotal +
-    (baseTotal * totalPleiadesBoostPer) / 100 +
-    tierBoostPoints +
-    specialPleiadesPoints;
-  return pleiadesTotal;
 };
