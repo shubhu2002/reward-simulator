@@ -10,7 +10,7 @@ const CloseButton = () => {
       onClick={() => setModal(null)}
     >
       <div
-        className={`bg-primary z-[3] rounded-full p-3 transition-all duration-300 group-hover:translate-x-[80px] group-hover:rotate-[360deg] group-hover:bg-white group-hover:text-black`}
+        className={`z-[3] rounded-full bg-primary p-3 transition-all duration-300 group-hover:translate-x-[80px] group-hover:rotate-[360deg] group-hover:bg-white group-hover:text-black`}
       >
         <RxCross2 className="stroke-[1.5px]" />
       </div>
