@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+  background: #fbca1f;
+  font-family: inherit;
+  padding: 0.5em 1.3em;
+  font-weight: 900;
+  font-size: 18px;
+  border: 3px solid black;
+  border-radius: 0.4em;
+  box-shadow: 0.1em 0.1em;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em;
+}
+
+button:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em;
+}
+
+.golden-text,
+.golden-text-hover:hover {
+  background: linear-gradient(#ff0, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+input {
+  font-family: "SF Pro";
+  font-weight: bold;
+}
+.gradient{
+  /* background: linear-gradient(180deg , rgb(43, 199, 188) 0%, rgb(219, 249, 203) 72.9%); */
+  /* background: linear-gradient(to bottom, rgb(182, 244, 146), rgb(51, 139, 147)); */
+  /* background: linear-gradient(180deg, rgb(148, 233, 194) 11.2%, rgb(224, 235, 186) 91.1%); */
+  background: linear-gradient(180.9deg, rgb(94, 124, 121) 4.4%, rgb(64, 224, 208) 89%);
+}
