@@ -6,20 +6,21 @@ export const pleiadesCalculation = (
 ): number => {
   const basePoints = [30, 20, 15];
 
-  let baseTotal = 0;
+  let total_base = 0; // Total Base Points
 
-  let totalPleiadesCounts = 0;
-  let totalPleiadesBoostPer = 1;
+  let total_pleiades_counts = 0;
+  let total_pleiades_boost_per = 1;
 
-  let tierBoostPer = 0;
-  let tierBoostPoints = 0;
+  let tier_boost_per = 0;
+  let total_tier_boost_points = 0; // Total Tier Boost Points
 
   tierPleiades.forEach((count, tier) => {
     if (basePoints[tier]) {
-      baseTotal += count * basePoints[tier];
+      // base total part
+      total_base += count * basePoints[tier];
 
-      // tier Boost Part
-      tierBoostPer =
+      // tier boost part
+      tier_boost_per =
         count >= 10
           ? 100
           : count >= 5
@@ -29,57 +30,62 @@ export const pleiadesCalculation = (
               : count >= 2
                 ? 25
                 : 0;
-      if (tierBoostPer >= 1) {
-        tierBoostPoints +=
-          (count * basePoints[tier] * tierBoostPer) / 100 +
+
+      if (tier_boost_per > 0) {
+        total_tier_boost_points +=
+          (count * basePoints[tier] * tier_boost_per) / 100 +
           count * basePoints[tier];
       }
 
-      // total mask Boost part
-      totalPleiadesCounts += count;
-      totalPleiadesBoostPer =
-        totalPleiadesCounts >= 10
+      // total pleiades boost part
+      total_pleiades_counts += count;
+      total_pleiades_boost_per =
+        total_pleiades_counts >= 10
           ? 50
-          : totalPleiadesCounts >= 5
+          : total_pleiades_counts >= 5
             ? 40
-            : totalPleiadesCounts >= 3
+            : total_pleiades_counts >= 3
               ? 30
-              : totalPleiadesCounts >= 2
+              : total_pleiades_counts >= 2
                 ? 20
                 : 0;
     }
   });
 
-  const totalPleiadesBoostPoints = (baseTotal * totalPleiadesBoostPer) / 100;
+  // Total Pleiades Boost Points
+  const total_pleiades_boost_points =
+    (total_base * total_pleiades_boost_per) / 100;
 
-  const specialPleiadesPoints = specialPleiadesCalculation(
-    totalPleiadesCounts,
+  // Total Special Pleiades Points
+  const total_special_pleiades_points = specialPleiadesCalculation(
+    total_pleiades_counts,
     specialPleiades,
   );
-  console.log(baseTotal,tierBoostPoints);
-  const pleiadesTotal: number =
-    baseTotal +
-    tierBoostPoints +
-    totalPleiadesBoostPoints +
-    specialPleiadesPoints;
 
-  return pleiadesTotal;
+  // Final Pleiades points
+  const final_pleiades_points: number =
+    total_base +
+    total_tier_boost_points +
+    total_pleiades_boost_points +
+    total_special_pleiades_points;
+
+  return final_pleiades_points;
 };
 
 const specialPleiadesCalculation = (
-  totalPleiadesCounts: number,
+  total_pleiades_counts: number,
   specialPleiades: number,
 ): number => {
-  if (totalPleiadesCounts < specialPleiades) {
+  if (total_pleiades_counts < specialPleiades) {
     toast.error(
       "Total Pleiades must be greater than or equal to Unique Ones Pleiades.",
     );
     return 412;
   }
 
-  const baseSpecialPleiadesPoints = specialPleiades * 20;
+  const base_special_points = specialPleiades * 20; // Total Base Special Points
 
-  const boostPer =
+  const special_boost_per =
     specialPleiades >= 5
       ? 50
       : specialPleiades >= 3
@@ -88,11 +94,11 @@ const specialPleiadesCalculation = (
           ? 30
           : 0;
 
-  if (boostPer > 0) {
+  if (special_boost_per > 0) {
     return (
-      baseSpecialPleiadesPoints + (baseSpecialPleiadesPoints * boostPer) / 100
+      base_special_points + (base_special_points * special_boost_per) / 100 // Total Special Points With Boost
     );
   } else {
-    return baseSpecialPleiadesPoints;
+    return base_special_points; // Total Special Points Without Boost
   }
 };

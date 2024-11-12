@@ -1,6 +1,7 @@
 export const goldenTicketCalculation = (goldenTickets: number): number => {
-  const GTBaseTotal = goldenTickets * 200;
-  const boostValue =
+  const GT_base_total = goldenTickets * 200; // Total Base Points
+
+  const boost_per =
     goldenTickets >= 5
       ? 100
       : goldenTickets >= 3
@@ -9,17 +10,16 @@ export const goldenTicketCalculation = (goldenTickets: number): number => {
           ? 20
           : 0;
 
-  const goldenTicketsPointsTotal =
-    GTBaseTotal + (GTBaseTotal * boostValue) / 100;
+  const final_GT_points = GT_base_total + (GT_base_total * boost_per) / 100; // Final GT Points with Boost
 
-  return goldenTicketsPointsTotal;
+  return final_GT_points;
 };
 
 export const extraBoostGoldenTickets = (
   totalPoints: number,
   goldenTickets: number,
 ): number => {
-  const extraBoostPercentage =
+  const extra_boost_per =
     goldenTickets >= 5
       ? 25
       : goldenTickets >= 3
@@ -28,5 +28,5 @@ export const extraBoostGoldenTickets = (
           ? 5
           : 0;
 
-  return (totalPoints * extraBoostPercentage) / 100;
+  return (totalPoints * extra_boost_per) / 100; // Final Extra GT Boost Points
 };
